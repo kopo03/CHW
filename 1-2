@@ -1,0 +1,13 @@
+#include <stdio.h>
+
+void main()
+{
+    int num, a, b, c, sum;
+    scanf("%d", &num);
+    a = num / 100; // 100의 자리
+    b = (num / 10) % 10; // 10의 자리
+    c = num % 10; // 1의 자리
+    sum = a + b + c;
+    
+    printf("자리 수의 합 : %d\n", sum);
+}
