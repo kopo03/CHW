@@ -1,0 +1,25 @@
+create database temp;
+
+use temp;
+
+create table students(
+id int(5) auto_increment primary key,
+name char(10) not null,
+age int(5) not null,
+grade char(5) not null
+);
+
+insert into students values(1, "Alice", 20, 'A');
+insert into students values(2, "Bob", 22, 'B');
+insert into students values(3, "Charlie", 21, 'A');
+insert into students values(4, "Dave", 21, 'A');
+
+update students set age = 22 where name = "Charlie";
+
+select name, age from students where grade = 'A';
+
+delete from students where name = "Dave";
+
+insert into students(name, age, grade) values("Dave", 21, 'A');
+
+select * from students;
