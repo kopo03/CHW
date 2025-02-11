@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+void main()
+{
+    int num;
+    printf("1. 기본정보\n2. 성장과정\n3. 성격의 장단점\n4. 지원동기\n5. 입사 후 포부\n");
+    scanf("%d", &num);
+    switch(num) {
+        case 1:
+            printf("1. 기본정보\n");
+            printf("이름 : 김우석\n나이 : 30\n학력 : 대졸\n주소 : 경기도 남양주");
+            break;
+        case 2:
+            printf("2. 성장과정\n");
+            printf("성장과정의 내용~~~\n");
+            break;
+        case 3:
+            printf("3. 성격의 장단점\n");
+            printf("성격의 장단점에 대한 내용 ~~~\n");
+            break;
+        case 4:
+            printf("4. 지원동기\n");
+            printf("지원동기에 대한 내용 ~~~~\n");
+            break;
+        case 5:
+            printf("5. 입사 후 포부\n");
+            printf("입사 후 포부 ~~~\n");
+            break;
+    }
+}
