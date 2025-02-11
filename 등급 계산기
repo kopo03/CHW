@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+void main()
+{
+    int score;
+    scanf("%d", &score);
+    if (score >= 90) {
+        printf("A 등급\n");
+        score = score + (score / 10);
+        printf("점수 : %d", score);
+    } else if (score >= 80 && score <= 89) {
+        printf("B 등급\n");
+        score = score + (score / 20);
+        printf("점수 : %d", score);
+    } else if (score >= 70 && score <= 79) {
+        printf("C 등급\n");
+        printf("점수 : %d", score);
+    } else if (score >= 60 && score <= 69) {
+        printf("D 등급\n");
+        printf("점수 : %d", score);
+    } else {
+        printf("F 등급\n");
+        printf("점수 : %d", score);
+    }
+}
