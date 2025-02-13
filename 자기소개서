@@ -44,9 +44,9 @@ void main()
             break;
         case 7:
             printf("7. 삼행시\n");
-            printf("김 : 김\n");
-            printf("우 : 우\n");
-            printf("석 : 석\n");
+            printf("김 : 김우석이란 사람에 대해\n");
+            printf("우 : 우려스러울 수 있겠지만\n");
+            printf("석 : 석상과 같이 묵묵히 제 할 일을 하는 사람이 되겠습니다.\n");
             break;
     }
 }
