@@ -1,0 +1,15 @@
+#include <stdio.h>
+
+void main()
+{
+	int n;
+	int i = 0;
+	scanf("%d", &n);
+	while (i < n) {
+		i = i + 2;
+		if (i == 0) {
+		    continue;
+		}
+		printf("%d ", i);
+	}
+}
