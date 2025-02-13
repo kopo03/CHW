@@ -1,0 +1,19 @@
+#include <stdio.h>
+
+void main()
+{
+    int M, N;
+    scanf("%d", &M);
+    scanf("%d", &N);
+    for (int i = M; i <= N; i++) {
+        if (i % 7 == 0 || i % 10 == 7 || (i / 10) % 10 == 7 || i / 100 == 7) {
+            continue;
+        }
+        if (i % 5 ==0) {
+            printf("%d ", i);
+            break;
+        } else {
+            printf("%d ", i);
+        }
+    }
+}
