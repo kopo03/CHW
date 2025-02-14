@@ -10,9 +10,9 @@ void main()
 	    if (i > n) {
 	        break;
 	    }
-		if (i == 0) {
-		    continue;
-		}
-		printf("%d ", i);
+	    if (i == 0) {
+	    	continue;
+	    }	
+	    printf("%d ", i);
 	}
 }
