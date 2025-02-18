@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+void main() {
+    int arr[] = {64, 25, 12, 22, 11}, tmp;
+    int *ptr = arr;
+    for (int i = 0; i <4; i++) {
+        int min_idx = i;
+        for (int j = i + 1; j < 5; j++) {
+            if (*(ptr + j) < *(ptr + min_idx)) {
+                min_idx = j;
+            }
+        }
+        if (min_idx != i) {
+            tmp = *(ptr + i);
+            *(ptr + i) = *(ptr + min_idx);
+            *(ptr + min_idx) = tmp;
+        }
+    }
+    for (int i = 0; i < 5; i++) {
+        printf("%d ", *(ptr + i));
+    }
+}
