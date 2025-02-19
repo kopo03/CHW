@@ -1,0 +1,74 @@
+#include <stdio.h>
+
+void main() {
+   
+    enum SEDAN {sonata, grandeur, k5, g70};
+    enum SEDAN SE;
+   
+    enum SUV {santafe, tucson, sorento, sportage};
+    enum SUV S;
+   
+    enum TRUCK {porter, bongo, lesta, mighty};
+    enum TRUCK TR;
+   
+    enum VAN {starex, carnival, portervan, turismo};
+    enum VAN V;
+   printf("SEDAN : 0 - sonata / 1 - grandeur / 2 - k5 / 3 - g70\n");
+   scanf("%d", &SE);
+   printf("SUV : 0 - santafe / 1 - tucson / 2 - sorento / 3 - sportage\n");
+   scanf("%d", &S);
+   printf("TRUCK : 0 - porter / 1 - bongo / 2 - lesta / 3 - mighty\n");
+   scanf("%d", &TR);
+   printf("VAN : 0 - starex / 1 - carnival / 2 - portervan / 3 - turismo\n");
+   scanf("%d", &V);
+   
+   printf("입력한 값에 해당하는 차량 입니다.\n");
+   printf("SEDAN : ");
+   switch(SE) {
+       case sonata : printf("sonata\n");
+       break;
+       case grandeur : printf("grandeur\n");
+       break;
+       case k5 : printf("k5\n");
+       break;
+       case g70 : printf("g70\n");
+       break;
+       default : printf("해당없음\n");
+   }
+   printf("SUV : ");
+   switch(S) {
+       case santafe : printf("santafe\n");
+       break;
+       case tucson : printf("tucson\n");
+       break;
+       case sorento : printf("sorento\n");
+       break;
+       case sportage : printf("sportage\n");
+       break;
+       default : printf("해당없음\n");
+   }
+   printf("TRUCK : ");
+   switch(TR) {
+       case porter : printf("porter\n");
+       break;
+       case bongo : printf("bongo\n");
+       break;
+       case lesta : printf("lesta\n");
+       break;
+       case mighty : printf("mighty\n");
+       break;
+       default : printf("해당없음\n");
+   }
+   printf("VAN : ");
+   switch(V) {
+       case starex : printf("starex\n");
+       break;
+       case carnival : printf("carnival\n");
+       break;
+       case portervan : printf("portervan\n");
+       break;
+       case turismo : printf("turismo\n");
+       break;
+       default : printf("해당없음\n");
+   }
+}
