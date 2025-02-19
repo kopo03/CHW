@@ -4,16 +4,16 @@ void main() {
     int nums[5], tmp, j;
     nums[0] = 8;
     scanf("%d", &nums[1]);
-    printf("초기 : ");
+    printf("초기 : [");
     for (int i = 0; i < 2; i++) {
         if (nums[i] > nums[i + 1]) {
             tmp = nums[i];
             nums[i] = nums[i + 1];
             nums[i + 1] = tmp;
         }
-        printf("%d ", nums[i]);
+        printf("%d,", nums[i]);
     }
-    printf("\n");
+    printf("\b]\n");
     scanf("%d", &nums[2]);
     for (int i = 1; i < 3; i++) {
         tmp = nums[i];
@@ -24,11 +24,11 @@ void main() {
         }
         nums[j + 1] = tmp;
     }
-    printf("1단계 : ");
+    printf("1단계 : [");
     for (int i = 0; i < 3; i++) {
-        printf("%d ", nums[i]);
+        printf("%d,", nums[i]);
     }
-    printf("\n");
+    printf("\b]\n");
     scanf("%d", &nums[3]);
     for (int i = 2; i < 4; i++) {
         tmp = nums[i];
@@ -39,11 +39,11 @@ void main() {
         }
         nums[j + 1] = tmp;
     }
-    printf("2단계 : ");
+    printf("2단계 : [");
     for (int i = 0; i < 4; i++) {
-        printf("%d ", nums[i]);
+        printf("%d,", nums[i]);
     }
-    printf("\n");
+    printf("\b]\n");
     scanf("%d", &nums[4]);
     for (int i = 3; i < 5; i++) {
         tmp = nums[i];
@@ -54,9 +54,9 @@ void main() {
         }
         nums[j + 1] = tmp;
     }
-    printf("3단계 : ");
+    printf("3단계 : [");
     for (int i = 0; i < 5; i++) {
-        printf("%d ", nums[i]);
+        printf("%d,", nums[i]);
     }
-    printf("\n");
+    printf("\b]\n");
 }
