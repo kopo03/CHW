@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+void main() {
+    union Val {
+        int intVal;
+        float floatVal;
+        char charVal;
+    };
+    
+    union Val u;
+    printf("정수 입력 : ");
+    scanf("%d", &u.intVal);
+    printf("실수 입력 : ");
+    scanf("%f", &u.floatVal);
+    printf("문자 입력 : ");
+    scanf(" %c", &u.charVal);
+    
+    printf("정수 값 : %d 정수의 주소값 : %d\n", u.intVal, &u.intVal);
+    printf("실수 값 : %f 실수의 주소값 : %d\n", u.floatVal, &u.floatVal);
+    printf("문자 값 : %c 문자의 주소값 : %d\n", u.charVal, &u.charVal);
+}
