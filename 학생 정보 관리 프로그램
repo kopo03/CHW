@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+void main() {
+    struct groups {
+        char name[50];
+        int age;
+        char grade;
+    };
+    
+    struct groups g1;
+    printf("이름 : ");
+    scanf("%s", g1.name);
+    printf("나이 : ");
+    scanf("%d", &g1.age);
+    printf("등급 : ");
+    scanf(" %c", &g1.grade);
+    printf("학생 정보 관리 프로그램\n");
+    printf("이름 : %s\n", g1.name);
+    printf("나이 : %d\n", g1.age);
+    printf("등급 : %c\n", g1.grade);
+}
