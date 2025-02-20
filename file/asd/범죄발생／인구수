@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_ROWS 1000  // 최대 행 수
+#define MAX_COLS 100   // 최대 열 수
+
+// 두 파일을 읽고 계산을 수행하여 결과를 새로운 파일에 저장하는 함수
+void calculate_and_save_results(char *input_file1, char *input_file2, char *output_file) {
+    FILE *file1 = fopen(input_file1, "r");  // 첫 번째 파일 열기
+    if (file1 == NULL) {
+        printf("1\n");
+        return;
+    }
+
+    FILE *file2 = fopen(input_file2, "r");  // 두 번째 파일 열기
+    if (file2 == NULL) {
+        printf("2\n");
+        fclose(file1);
+        return;
+    }
+
+    FILE *out_file = fopen(output_file, "w");  // 결과를 저장할 새로운 파일 열기
+    if (out_file == NULL) {
+        printf("3\n");
+        fclose(file1);
+        fclose(file2);
+        return;
+    }
+
+    char line[1000];
+    float data1[MAX_ROWS][MAX_COLS];
+    float data2[MAX_ROWS][MAX_COLS];
+    int row1 = 0, row2 = 0, col1 = 0, col2 = 0;
+
+    // 첫 번째 파일 읽기 (헤더 포함)
+    while (fgets(line, sizeof(line), file1) && row1 < MAX_ROWS) {
+        char *token = strtok(line, ",");
+        col1 = 0;
+        while (token != NULL && col1 < MAX_COLS) {
+            // 헤더 첫 번째 행은 그대로 복사
+            data1[row1][col1] = atof(token);  // 실수형으로 변환하여 저장
+            token = strtok(NULL, ",");
+            col1++;
+        }
+        row1++;
+    }
+
+    // 두 번째 파일 읽기
+    while (fgets(line, sizeof(line), file2) && row2 < MAX_ROWS) {
+        char *token = strtok(line, ",");
+        col2 = 0;
+        while (token != NULL && col2 < MAX_COLS) {
+            data2[row2][col2] = atof(token);  // 실수형으로 변환하여 저장
+            token = strtok(NULL, ",");
+            col2++;
+        }
+        row2++;
+    }
+
+    // 첫 번째 파일에서 계산을 수행하고 새로운 파일에 저장
+        // 첫 번째 파일의 C2, D2, ..., P2 값을 두 번째 파일의 C5, C6, ..., C21 값으로 나누기
+        for (int j = 2; j <= 20; j++) {  // C2부터 P2까지의 열 인덱스 (C=2, D=3, ..., P=15)
+            // 두 번째 파일의 C5부터 C21까지 (즉, C5=5, C6=6, ..., C21=21)의 값을 이용하여 나누기
+            if (data2[j + 2][5] != 0) {  // 나누는 값이 0이 아니어야 계산 가능
+                data1[1][j] = data1[1][j] / data2[j + 2][5];
+            } else {
+                data1[1][j] = 0;  // 나누는 값이 0일 경우 결과를 0으로 설정
+            }
+        }
+
+    // 첫 번째 행은 그대로 출력 (헤더)
+    for (int i = 0; i < col1; i++) {
+        fprintf(out_file, "%s", strtok(i == 0 ? line : NULL, ","));  // 첫 번째 행은 그대로 출력
+        if (i < col1 - 1) {
+            fprintf(out_file, ",");
+        }
+    }
+    fprintf(out_file, "\n");
+
+    // 두 번째 행부터 계산된 결과를 출력
+    for (int i = 1; i < row1; i++) {
+        for (int j = 0; j < col1; j++) {
+            fprintf(out_file, "%.6f", data1[i][j]);  // 실수값 소수점 6자리로 출력
+            if (j < col1 - 1) {
+                fprintf(out_file, ",");
+            }
+        }
+        fprintf(out_file, "\n");
+    }
+
+    fclose(file1);
+    fclose(file2);
+    fclose(out_file);
+}
+
+int main() {
+    char input_filename1[] = "C:/Users/user/Desktop/2022_sum.csv";  // 첫 번째 CSV 파일 경로
+    char input_filename2[] = "C:/Users/user/Desktop/2018~2022_pp.csv"; // 두 번째 CSV 파일 경로
+    char output_filename[] = "C:/Users/user/Desktop/2022_rating.csv";       // 새로 생성할 CSV 파일 경로
+    
+    calculate_and_save_results(input_filename1, input_filename2, output_filename);
+
+    printf("4\n");
+    return 0;
+}
