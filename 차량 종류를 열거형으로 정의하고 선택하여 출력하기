@@ -2,40 +2,50 @@
 #include <string.h>
 
 void main() {
-   
     enum car {SEDAN, SUV, TRUCK, VAN};
-    enum car c;
-    char input[20];
-    
-    printf("차량 이름을 입력하세요 : ");
-    scanf("%s", input);
     
     char *SE_MO[] = {"sonata", "grandeur", "k5", "g70"};
     char *SUV_MO[] = {"santafe", "tucson", "sorento", "sportage"};
     char *TR_MO[] = {"porter", "bongo", "lesta", "mighty"};
     char *VAN_MO[] = {"starex", "carnival", "portervan", "turismo"};
     
+    char input[20];
+    printf("차량 이름을 입력하세요 : ");
+    scanf("%s", input);
+    
+    enum car c;
+    
     int found = 0;
     
     for (int i = 0; i < 4; i++) {
         if (strcmp(input, SE_MO[i]) == 0) {
-            printf("%s는(은) 세단입니다.\n", input);
+            c = SEDAN;
+            printf("%s는(은) SEDAN입니다.\n", input);
             found = 1;
+            break;
         } 
         else if (strcmp(input, SUV_MO[i]) == 0) {
+            c = SUV;  // SUV로 설정
             printf("%s는(은) SUV입니다.\n", input);
             found = 1;
+            break;
         } 
         else if (strcmp(input, TR_MO[i]) == 0) {
+            c = TRUCK;  // 트럭으로 설정
             printf("%s는(은) TRUCK입니다.\n", input);
             found = 1;
+            break;
         } 
         else if (strcmp(input, VAN_MO[i]) == 0) {
+            c = VAN;  // 밴으로 설정
             printf("%s는(은) VAN입니다.\n", input);
             found = 1;
+            break;
         }
     }
+    
+    // 차량을 찾지 못한 경우 처리
     if (!found) {
-        printf("%s 차량은 없습니다.", input);
+        printf("%s 차량은 없습니다.\n", input);
     }
 }
