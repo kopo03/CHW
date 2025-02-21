@@ -8,7 +8,7 @@ void main() {
         printf("%d,", arr[i]);
     }
     printf("\b]\n");
-    for (int i = 0; i <4; i++) {
+    for (int i = 0; i < 5; i++) {
         int min_idx = i;
         for (int j = i + 1; j < 5; j++) {
             if (*(ptr + j) < *(ptr + min_idx)) {
@@ -20,10 +20,10 @@ void main() {
             *(ptr + i) = *(ptr + min_idx);
             *(ptr + min_idx) = tmp;
         }
+        printf("%d단계: [", i + 1);
+        for (int l = 0; l < 5; l++) {
+            printf("%d,", *(ptr + l));
+        }
+        printf("\b]\n");
     }
-    printf("5단계 : [");
-    for (int i = 0; i < 5; i++) {
-        printf("%d,", *(ptr + i));
-    }
-    printf("\b]\n");
 }
