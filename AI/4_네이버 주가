@@ -69,6 +69,9 @@ predicted_value = scaler.inverse_transform(predicted_value)
 df_naver_train_vis = naver[:284]
 df_naver_test_vis = naver[284:]
 
+#predicted_value와 df_naver_test_vis의 길이 맞추기
+predicted_value = predicted_value[:len(df_naver_test_vis)]
+
 # .loc를 사용하여 경고를 피하고 'Predictions' 열에 값을 설정
 df_naver_test_vis.loc[:, 'Predictions'] = predicted_value
 plt.plot(df_naver_train_vis['Close'])
