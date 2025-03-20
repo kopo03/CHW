@@ -1,0 +1,75 @@
+# 네이버 주가 데이터 로드
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import yfinance as yf
+from tensorflow.keras import Sequential
+from tensorflow.keras.layers import Dense, LSTM, Dropout
+
+# 네이버의 주식코드 : 035420.KS
+naver = yf.download('035420.KS', start='2021-11-01', end='2023-03-31')
+df_naver = pd.DataFrame(naver['Close'])
+
+df_naver = df_naver.reset_index()
+df_naver.columns = ['date', 'value']
+df_naver['date'] = pd.to_datetime(df_naver['date'])
+df_naver.set_index('date', inplace = True)
+
+# 테스트 데이터 분할 및 데이터 스케일링
+df_naver.reset_index()
+dataset_naver = df_naver.values
+
+# 데이터 분할
+df_naver_train = dataset_naver[:int(0.8 * len(dataset_naver)), :]
+df_naver_test = dataset_naver[int(0.8 * len(dataset_naver)):, :]
+
+# 데이터 스케일링
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler(feature_range = (0, 1))
+scaled_data = scaler.fit_transform(dataset_naver)
+
+# 학습 데이터 가공
+x_train_data, y_train_data = [], []
+
+# 28일을 기준으로 데이터 생성하기
+for i in range(28, len(df_naver_train)):
+  x_train_data.append(scaled_data[i-28:i, 0])
+  y_train_data.append(scaled_data[i, 0])
+
+x_train_data, y_train_data = np.array(x_train_data), np.array(y_train_data)
+x_train_data = np.reshape(x_train_data, (x_train_data.shape[0], x_train_data.shape[1], 1))
+
+# RNN 모형 설계 및 파라미터 정의
+lstm_naver = Sequential()
+
+lstm_naver.add(LSTM(units = 28, return_sequences = True, input_shape = (x_train_data.shape[1], 1)))
+lstm_naver.add(LSTM(units = 28))
+lstm_naver.add(Dense(1))
+
+# 데이터 재가공하기
+inputs_data = df_tsla[len(df_naver) - len(df_naver_test) - 28:].values
+inputs_data = inputs_data.reshape(-1, 1)
+inputs_data = scaler.transform(inputs_data)
+
+# 모형의 학습 방법 설정하여 학습 진행하기
+lstm_naver.compile(loss = 'mean_squared_error', optimizer = 'adam')
+lstm_naver.fit(x_train_data, y_train_data, epochs = 100, batch_size = 1, verbose = 2)
+
+# 학습이 완료된 RNN 모형으로 주가 예측
+X_test = []
+for i in range(28, inputs_data.shape[0]):
+  X_test.append(inputs_data[i - 28:i, 0])
+X_test = np.array(X_test)
+
+X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
+predicted_value = lstm_naver.predict(X_test)
+predicted_value = scaler.inverse_transform(predicted_value)
+
+# 주가 예측 결과 시각화
+df_naver_train_vis = naver[:284]
+df_naver_test_vis = naver[284:]
+
+# .loc를 사용하여 경고를 피하고 'Predictions' 열에 값을 설정
+df_naver_test_vis.loc[:, 'Predictions'] = predicted_value
+plt.plot(df_naver_train_vis['Close'])
+plt.plot(df_naver_test_vis[['Close', 'Predictions']])
