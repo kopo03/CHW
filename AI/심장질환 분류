@@ -1,0 +1,16 @@
+# 과제 2 (심장질환 분류)
+import matplotlib.pyplot as plt
+plt.hist(df_heart.label, bins = 4)
+
+import seaborn as sns
+ax = sns.heatmap(df_heart.corr(), annot = True, annot_kws = {'size' : 6})
+plt.show()
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn import metrics
+
+model = RandomForestClassifier(n_estimators = 100)
+model.fit(train_X, train_Y)
+pred_RF = model.predict(test_X)
+
+print('랜덤 포레스트 알고리즘 예측 정확도 :', metrics.accuracy_score(pred_RF, test_Y))
