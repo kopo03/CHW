@@ -1,0 +1,20 @@
+# 과제 1 (심장질환 학습 데이터 구성)
+import pandas as pd
+
+col_Names = ['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalch', 'exang', 'oldpeak', 'slope', 'ca', 'thal', 'label']
+df_heart = pd.read_csv('http://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/processed.cleveland.data', names=col_Names)
+df_heart
+
+import numpy as np
+
+df_heart.replace('?', np.nan, inplace = True)
+df_heart = df_heart.dropna()
+df_heart
+
+from sklearn.model_selection import train_test_split
+
+train, test = train_test_split(df_heart, test_size = 0.3, random_state = 0, stratify = df_heart['label'])
+train_X = train[train.columns[:13]]
+train_Y = train[train.columns[13:]]
+test_X = test[test.columns[:13]]
+test_Y = test[test.columns[13:]]
