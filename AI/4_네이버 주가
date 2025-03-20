@@ -47,7 +47,7 @@ lstm_naver.add(LSTM(units = 28))
 lstm_naver.add(Dense(1))
 
 # 데이터 재가공하기
-inputs_data = df_tsla[len(df_naver) - len(df_naver_test) - 28:].values
+inputs_data = df_naver[len(df_naver) - len(df_naver_test) - 28:].values
 inputs_data = inputs_data.reshape(-1, 1)
 inputs_data = scaler.transform(inputs_data)
 
