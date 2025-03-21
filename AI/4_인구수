@@ -1,0 +1,99 @@
+# CSV 데이터 읽기
+import pandas as pd
+df = pd.read_csv('행정구역_시군구_별__성별_인구수.csv', encoding = 'cp949')
+
+# 지역별 월 증감 인구수
+columns = list(df.columns)
+del columns[1]
+popDiff = [ ]
+
+for i in range(2, len(df)):
+  row = [df.loc[i][0]]
+  for j in range(2, len(df.loc[i])):
+    pop = int(df.loc[i][j]) -int(df.loc[i][j -1])
+    row.append(pop)
+  popDiff.append(row)
+
+dfPopDiff = pd.DataFrame(popDiff, columns=columns)
+dfPopDiff.to_csv('populationDiff.csv', encoding='cp949')
+
+# 지역별 월 인구 증감률
+columns = list(df.columns)
+del columns[1]
+popIncreaseRate= [ ]
+for i in range(2, len(df)):
+  row = [df.loc[i][0]]
+  for j in range(2 , len(df.loc[i])):
+    pop = float((int(df.loc[i][j])-int(df.loc[i][j-1]))/int(df.loc[i][j-1])) * 100.0
+    row.append(pop)
+  popIncreaseRate.append(row)
+
+dfPopIncreaseRate = pd.DataFrame(popIncreaseRate, columns=columns)
+dfPopIncreaseRate.to_csv('populationIncreaseRate.csv', encoding='cp949', index=False)
+
+# CSV 데이터 읽기
+import pandas as pd
+df = pd.read_csv('populationDiff.csv', encoding='cp949')
+
+popDiff = [ ]
+for i in range(0, len(df)):
+  popDiff.append(list(df.loc[i]))
+
+# 축과 데이터 준비
+x_values = [ ]
+for i in range(1, 7):
+ yyyymm = '20220' + str(i)
+ x_values.append(yyyymm)
+
+# 데이터 준비하기
+y_seoul = popDiff[0][108:114]
+y_bs = popDiff[1][108:114]
+y_dg = popDiff[2][108:114]
+y_ic = popDiff[3][108:114]
+y_gj = popDiff[4][108:114]
+y_dj = popDiff[5][108:114]
+y_us = popDiff[6][108:114]
+y_sj = popDiff[7][108:114]
+y_gg = popDiff[8][108:114]
+y_gw = popDiff[9][108:114]
+y_cb = popDiff[10][108:114]
+y_cn = popDiff[11][108:114]
+y_jb = popDiff[12][108:114]
+y_jn = popDiff[13][108:114]
+y_gb = popDiff[14][108:114]
+y_gn = popDiff[15][108:114]
+y_jj = popDiff[16][108:114]
+
+# 막대 그래프 그리기
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.figure(figsize=(12,8))
+ax = plt.subplot( )
+bar_width = 0.05
+
+x = np.arange(6)
+ax.set_xticks(x)
+ax.set_xticklabels(x_values)
+
+# 막대 그래프 생성하기
+p1 = plt.bar(x, y_seoul, bar_width)
+p2 = plt.bar(x + bar_width, y_bs, bar_width)
+p3 = plt.bar(x + bar_width*2, y_dg, bar_width)
+p4 = plt.bar(x + bar_width*3, y_ic, bar_width)
+p5 = plt.bar(x + bar_width*4, y_gj, bar_width)
+p6 = plt.bar(x + bar_width*5, y_dj, bar_width)
+p7 = plt.bar(x + bar_width*6, y_us, bar_width)
+p8 = plt.bar(x + bar_width*7, y_sj, bar_width)
+p9 = plt.bar(x + bar_width*8, y_gg, bar_width)
+p10 = plt.bar(x + bar_width*9, y_gw, bar_width)
+p11 = plt.bar(x + bar_width*10, y_cb, bar_width)
+p12 = plt.bar(x + bar_width*11, y_cn, bar_width)
+p13 = plt.bar(x + bar_width*12, y_jb, bar_width)
+p14 = plt.bar(x + bar_width*13, y_jn, bar_width)
+p15 = plt.bar(x + bar_width*14, y_gb, bar_width)
+p16 = plt.bar(x + bar_width*15, y_gn, bar_width)
+p17 = plt.bar(x + bar_width*16, y_jj, bar_width)
+
+plt.legend(['Seoul', 'Busan', 'Daegu', 'Incheon', 'Gwangju', 'Daejeon', 'Ulsan', 'Sejong', 'Gyeonggi', 'Gangwon', 'Chungbuk', 'Chungnam', 'Jeonbuk', 'Jeonnam', 'Gyeongbuk', 'Gyeongnam', 'Jeju'], loc=(1.0, 0))
+plt.show( )
